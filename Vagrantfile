@@ -11,16 +11,30 @@ vagrant_config = configs['configs']
 Vagrant.require_version ">= 1.7.0"
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.box_check_update = true
-  config.vm.synced_folder "shared/", "/vagrant", owner: "vagrant", group: "vagrant"
-  #config.vm.hostname = ".informagerealty.com"
-  #config.vm.box_url = "/home/administrator/Documents/Softwares/ubuntu-14.04.2-server-amd64.iso"
-  #config.vm.network "forwarded_port", guest: 80, host: 80, auto_correct: true
-  # config.vm.provision :shell, :path => "bootstrap.sh"
-  # config.vm.provider "virtualbox" do |vb|
-  #   vb.customize ["modifyvm", :id, "--memory", "512"]
+
+## AWS related settings:
+
+  # config.vm.box = "andytson/aws-dummy"
+  # config.vm.provider :aws do |aws, override|
+  #   aws.access_key_id = ""
+  #   aws.secret_access_key = ""
+  #   aws.keypair_name = ""
+  #   override.ssh.private_key_path = ""
+  #   aws.region = "ap-southeast-1"    
+  #   aws.instance_type = "t2.small"
+  #   aws.security_groups = "default"
+  #   aws.ami = "ami-06ccf454"
+  #   override.ssh.username = "ubuntu"
   # end
+
+  # config.vm.define "testdb01" do |testdb01|
+  #   testdb01.vm.provider "aws" do |vm|
+  #   end
+  #   testdb01.vm.hostname = ""
+  # end  
+
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.synced_folder "shared/", "/vagrant", owner: "vagrant", group: "vagrant"
 
   config.vm.define "web01" do |web01|
     web01.vm.provider "virtualbox" do |vm|
